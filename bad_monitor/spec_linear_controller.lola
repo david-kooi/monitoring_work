@@ -1,0 +1,72 @@
+import math
+
+input time:     Float64 
+input u:        Float64
+input theta:    Float64 
+input d_theta: Float64 
+
+constant RT : Float64 := 100.0
+constant SP : Float64 := 10.0
+
+output time_o := time  // 0
+output abs_err := abs(theta - SP) // 1
+
+output rho_0 := min(rho_1, rho_2) // 2
+output phi_0 := rho_0 > 0.0 // 3 
+
+output rho_1: Float64 := if time < 1500.0 then 999.0 else -999.0 // 4 
+output phi_1 := rho_1 > 0.0 // 5 
+
+output rho_2 := 0.1 - abs_err // 6
+output phi_2 := rho_2 > 0.0   // 7  
+
+
+//output rho_RT @20Hz := rho_0.aggregate(over:1500.0ms,using:max).defaults(to:0.0)
+
+
+output rho_0_max_off := rho_0_max.offset(by:-1).defaults(to:-999.0)
+output rho_0_max := if rho_0 > rho_0_max_off then rho_0 else rho_0_max_off
+
+output post_RT := if rho_0_max >= 0.0 then rho_0_max else -999.0
+output rho_RT := if time <= 1500.0 then 0.0 else post_RT
+
+//output rho_RT_delayed := rho_RT.offset(by:-6).defaults(to:0.0) 
+//output rho_RT_delayed := if time > 1500.0 then rho_RT else 0.0
+
+
+
+
+//output rho_0_agg @4Hz := rho_0.aggregate(over:1500.0ms,using:max) // 8  
+
+//output rho_0_max_hold := rho_0_max.hold().defaults(to:-999.0)
+
+//output rho_RT := if time < 1500.0 then rho_0_max_hold else rho_0_agg 
+
+
+//output phi_RT := rho_RT > 0.0 // 10
+
+
+
+/*
+output x_hold  @ 10Hz := x.hold().defaults(to: 0.0)
+output SP_hold @ 10Hz := SP.hold().defaults(to: 0.0)
+
+//output rho_1 := abs(SP - x).hold() 
+output rho_1 := 0.1 - abs(SP_hold-x_hold)
+output phi_1 := rho_1 > 0.0
+
+//constant l_1: Float64  := 0.0
+//constant u_1: Float64 := time * RT
+
+output rho_2 @10Hz := rho_1.aggregate(over: 100.0s, using:max).defaults(to:0.0)
+output phi_2 := rho_2 > 0.0
+
+
+// Settling time of 3 seconds
+// Sampling at 10 Hz = 100 ms periods
+// Settling needs to occur within 30 steps
+output rho_3     @10Hz := rho_1.aggregate(over: 3s, using:min).defaults(to:0.0)
+output rho_3     := rho_3 > 0.0
+
+*/
+

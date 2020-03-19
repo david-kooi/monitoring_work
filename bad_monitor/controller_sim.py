@@ -5,7 +5,7 @@ import pickle
 from scipy.integrate import odeint 
 import matplotlib.pyplot as plt
 
-PERIOD = 250 # ms
+PERIOD = 500 # ms
 
 
 # Globals
@@ -74,7 +74,7 @@ def get_period():
     """
     Returns the period in ms
     """
-    return 250
+    return PERIOD 
 
 def do_sampling(tspan, result):
 

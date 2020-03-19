@@ -4,7 +4,8 @@ import numpy as np
 from matplotlib import rc
 import matplotlib.pyplot as plt
 
-
+PERIOD = 500 #ms
+ 
 def plot_system():
 
     with open('sim_out.pkl', "rb") as f:
@@ -15,7 +16,7 @@ def plot_system():
 
     # Pure Data
     time    = pure_sim_data[0] 
-    time    = np.array(time)/250
+    time    = np.array(time)/PERIOD
     theta   = pure_sim_data[1]
     d_theta = pure_sim_data[2]
     u       = pure_sim_data[3] 
@@ -26,7 +27,7 @@ def plot_system():
     d_theta_s = samp_sim_data[2] 
     u_s       = samp_sim_data[3] 
 
-    time_s = np.array(time_s)/250 
+    time_s = np.array(time_s)/PERIOD
     time_s = time_s     
 
     # Get absolute value and normalize between [0,0.5]
@@ -49,7 +50,7 @@ def plot_system():
 def get_rho_data(): 
 
     height_phi = 10
-    sample_time = 250
+    sample_time = PERIOD 
     sim_time    = 10 # seconds
     sim_res     = 1  # ms
 

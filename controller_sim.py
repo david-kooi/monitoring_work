@@ -15,6 +15,15 @@ i = 0
 
 u_list = []
 
+
+
+def get_period():
+    """
+    Returns the period in ms
+    """
+    return 250 
+
+
 def compute_control(x_vec):
 
     K   = np.array(np.mat('0.001,0.5'))  
@@ -67,13 +76,6 @@ def f(x, t):
     return a*x + b*u 
 
 
-
-def get_period():
-    """
-    Returns the period in ms
-    """
-    return 10 
-
 def do_sampling(tspan, result):
 
     sim_out = open("sim_out.pkl", "wb")
@@ -83,7 +85,8 @@ def do_sampling(tspan, result):
     theta   = np.round(result[:,0],3)
     # Hack to get more like zero to 1 step response
     theta = theta + 10
-    d_theta = np.round(result[:,1],3) #TODO: d_theta is wrong
+    d_theta = np.round(result[:,1],3) 
+    d_theta = d_theta 
     u       = theta.copy()
     for i in range(0,len(theta)):
         x_vec = np.array([[theta[i]],[d_theta[i]]]) 

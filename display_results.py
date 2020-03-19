@@ -93,12 +93,6 @@ def plot_system(rho):
     plt.legend([r'$\theta(t)$',r'$\theta_s(t)$', r'$|u(t)|$'])
     plt.xlabel("Sample")
 
-    plt.figure() 
-    plt.plot(time, theta, 'b', linewidth=3.0)
-    plt.step(time_ap, theta_ap, 'r',linewidth=3.0)
-    #plt.step(time_ap, norm_u, 'g',linewidth=3.0) 
-    plt.legend([r'$\theta(t)$',r'$\theta_ap(t)$', r'$|u(t)|$'])
-    plt.xlabel("Sample")
 
 
 
@@ -222,7 +216,7 @@ if __name__ == "__main__":
 
     rho = get_rho_data() 
     time_s = plot_system(rho[5]) # rho[5] is the top level metric
-    #plot_performance(time_s, rho)
+    plot_performance(time_s, rho)
 
 
     plt.show()
